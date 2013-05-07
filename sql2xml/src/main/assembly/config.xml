@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<assembly>
+<id>my-app</id>
+
+	<formats>
+		<format>zip</format>
+	</formats>
+
+	<includeBaseDirectory>true</includeBaseDirectory>
+
+	<fileSets>
+		<fileSet>
+			<lineEnding>unix</lineEnding>
+			<directory>scripts</directory>
+			<outputDirectory>/scripts</outputDirectory>
+			<fileMode>0755</fileMode>
+		</fileSet>
+		<fileSet>
+			<directory>resources</directory>
+			<outputDirectory>/resources</outputDirectory>
+		</fileSet>
+	</fileSets>
+
+	<dependencySets>
+	<dependencySet>
+         <useProjectArtifact>true</useProjectArtifact>
+          <includes>
+             <include>*:jar</include>
+          </includes>
+          <outputDirectory>/lib</outputDirectory>
+      </dependencySet>
+	</dependencySets>
+
+</assembly>
