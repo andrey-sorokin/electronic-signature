@@ -94,7 +94,6 @@
 			<groupId>com.oracle</groupId>
 			<artifactId>ojdbc</artifactId>
 			<version>11.1.0.7.0-Production</version>
-			<classifier>Production</classifier>
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
