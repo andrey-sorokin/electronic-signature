@@ -32,7 +32,7 @@ public class OracleTest {
 		return new String[][]{sql0, sql1, sql2, sql3};
 	}
 
-	@Test(dataProvider = "sqls")
+	@Test(dataProvider = "sqls", enabled = false)
 	public void testGetAsClob(String sqlFinal, String sqlOrign) throws Exception {
 		String sql = Oracle.getAsClob(sqlOrign).toLowerCase();
 		Assert.assertEquals(sql, sqlFinal.toLowerCase());

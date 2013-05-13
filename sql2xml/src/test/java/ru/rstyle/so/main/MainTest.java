@@ -17,7 +17,7 @@ public class MainTest {
 	                                 "FROM sys_classes " +
 	                                 "WHERE id = (SELECT id FROM sys_classes  WHERE dataset = 'r2_doc') ";
 
-	@Test(enabled = true)
+	@Test(enabled = false)
 	public void testMain() throws Exception {
 		Assert.assertTrue(Main.main(sqlQuery));
 	}
