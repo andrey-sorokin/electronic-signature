@@ -8,11 +8,11 @@ public class Oracle {
 
 		StringBuffer sb = new StringBuffer();
 
-		Pattern p = Pattern.compile("XMLELEMENT.*?FROM");
+		Pattern p = Pattern.compile("XMLELEMENT.*?FROM", Pattern.CASE_INSENSITIVE);
 		Matcher m = p.matcher(input);
 
 		while (m.find()) {
-			m.appendReplacement(sb, getReplacement(m.group()));
+			m.appendReplacement(sb, getReplacement(m.group(0)));
 		}
 
 		m.appendTail(sb);
@@ -21,6 +21,7 @@ public class Oracle {
 	}
 
 	private static String getReplacement(String input) {
-		return "TO_CLOB(" + input.replace("FROM", "") + ")" + " FROM ";
+		String result = "TO_CLOB(" + input.replaceAll("(?i)FROM", "") + ")" + " FROM ";
+		return result;
 	}
 }
