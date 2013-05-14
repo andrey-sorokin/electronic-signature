@@ -4,12 +4,6 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-/**
- * Created with IntelliJ IDEA.
- * User: victor.alenkov
- * Date: 13.05.13
- * Time: 18:22
- */
 public class OracleTest {
 	@DataProvider(name = "sqls")
 	public String[][] sqls() {

@@ -30,8 +30,6 @@ public class Main {
 			xml.add(XMLUtil.toString(doc));
 		}
 
-		ListUtil.print(xml);
-
 		return ListUtil.compare(xml);
 
 	}

@@ -2,3 +2,7 @@
 bin/
 target/
 *.iml
+DOM
+JDOM
+Servers
+.gitignore

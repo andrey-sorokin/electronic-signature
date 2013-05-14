@@ -1,14 +1,8 @@
 package ru.rstyle.so.main;
 
-import junit.framework.Assert;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
-/**
- * Created with IntelliJ IDEA.
- * User: victor.alenkov
- * Date: 13.05.13
- * Time: 18:35
- */
 public class MainTest {
 	private static String sqlQuery = "SELECT id, " +
 	                                 "XMLELEMENT(name document, " +

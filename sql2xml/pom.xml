@@ -103,11 +103,9 @@
 			<version>1.6</version>
 		</dependency>
 		<dependency>
-			<groupId>oracle</groupId>
-			<artifactId>jdbc</artifactId>
-			<version>11.2.0.3</version>
-			<scope>system</scope>
-			<systemPath>D:/IdeaProjects/tmp.electronic-signature/sql2xml/libs/ojdbc6.jar</systemPath>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc</artifactId>
+			<version>11.1.0.7.0-Production</version>
 		</dependency>
 		<dependency>
 			<groupId>postgresql</groupId>
