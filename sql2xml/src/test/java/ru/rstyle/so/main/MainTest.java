@@ -1,6 +1,6 @@
 package ru.rstyle.so.main;
 
-import junit.framework.Assert;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 /**
