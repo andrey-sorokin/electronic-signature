@@ -38,7 +38,7 @@ public class MainTest {
 		sqlQuery[3] = "SELECT 1, " +
 				"XMLELEMENT(NAME \"root\", " +
                       "XMLATTRIBUTES(s.name AS \"name\"), " +
-                  " XMLAGG(XMLELEMENT(NAME \"description\", s.description))) " +
+                  " XMLAGG(XMLELEMENT(NAME \"description\", s.description) ORDER BY description)) " +
                   " FROM sys_classes s " +
                   " GROUP BY 1, name " +
                   " having s.name = 'Контакт'";
