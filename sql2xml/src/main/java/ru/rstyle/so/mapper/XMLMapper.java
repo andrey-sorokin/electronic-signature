@@ -16,11 +16,7 @@ public class XMLMapper implements RowMapper<XMLHolder> {
 
 		XMLHolder holder = new XMLHolder();
 
-		if (Semaphore.vendor.equals("oracle")) {
-			holder.setXml(rs.getString(2));
-		}
-
-		else if (Semaphore.vendor.equals("db2")) {
+		if (Semaphore.vendor.equals("db2")) {
 			holder.setXml(getXML(rs).replaceAll("&#xD;", ""));
 		}
 

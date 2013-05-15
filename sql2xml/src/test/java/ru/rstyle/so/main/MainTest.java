@@ -43,6 +43,18 @@ public class MainTest {
                   " GROUP BY 1, name " +
                   " having s.name = 'Контакт'";
 		
+		/*sqlQuery[4] = "select 1, " +
+		   "xmlelement (name customer, " +
+		               "xmlattributes(c.CustId as id), " +
+		               "xmlforest (c.Name as name, c.City as city), " +
+		               "xmlelement(name projects, " +
+		               "(select xmlagg(xmlelement(name project, " +
+		        "xmlattributes(p.ProjId as id), " +
+		        "xmlforest(p.Name as name))) " +
+		"from Projects p " +
+		"where p.custid=c.custid ))) " +
+		"from Customers c"; */
+		
 		for (String sql: sqlQuery){
 		     Assert.assertTrue(Main.main(sql, false));
 		}
