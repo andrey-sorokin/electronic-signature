@@ -41,10 +41,10 @@ public class MainTest {
                   " XMLAGG(XMLELEMENT(NAME \"description\", s.description) ORDER BY description)) " +
                   " FROM sys_classes s " +
                   " GROUP BY 1, name " +
-                  " having s.name = 'Контакт'";
+                  " having s.name = 'РљРѕРЅС‚Р°РєС‚'";
 		
 		for (String sql: sqlQuery){
-		     Assert.assertTrue(Main.main(sql, true));
+		     Assert.assertTrue(Main.main(sql, false));
 		}
 	}
 }
