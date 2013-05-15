@@ -21,20 +21,20 @@ public class XMLMapper implements RowMapper<XMLHolder> {
 		}
 
 		else if (Semaphore.vendor.equals("db2")) {
-			com.ibm.db2.jcc.DB2Xml data = (com.ibm.db2.jcc.DB2Xml) rs
-					.getObject(2);
-			String outcome = data.getDB2XmlString();
-			outcome = outcome.replaceAll("&#xD;", "");
-			holder.setXml(outcome);
+			holder.setXml(getXML(rs).replaceAll("&#xD;", ""));
 		}
 
 		else {
-			SQLXML sqlxml = rs.getSQLXML(2);
-			holder.setXml(sqlxml.getString());
+			holder.setXml(getXML(rs));
 		}
 
-		
-
 		return holder;
+	}
+
+	private String getXML(ResultSet rs) throws SQLException {
+		SQLXML sqlxml = rs.getSQLXML(2);
+		String outcome = sqlxml.getString();
+
+		return outcome;
 	}
 }
