@@ -23,7 +23,9 @@ public class XMLMapper implements RowMapper<XMLHolder> {
 		else if (Semaphore.vendor.equals("db2")) {
 			com.ibm.db2.jcc.DB2Xml data = (com.ibm.db2.jcc.DB2Xml) rs
 					.getObject(2);
-			holder.setXml(data.getDB2XmlString());
+			String outcome = data.getDB2XmlString();
+			outcome = outcome.replaceAll("&#xD;", "");
+			holder.setXml(outcome);
 		}
 
 		else {
