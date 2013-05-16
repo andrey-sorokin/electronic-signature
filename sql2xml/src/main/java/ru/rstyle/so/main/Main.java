@@ -11,33 +11,37 @@ import ru.rstyle.so.util.ListUtil;
 import ru.rstyle.so.util.SpringUtil;
 import ru.rstyle.so.util.XMLUtil;
 
-public class Main {
+public final class Main {
 
-	public static boolean main(String sqlQuery, boolean output) {
+    private Main() {
 
-		List<String> xml = new ArrayList<String>();
+    }
 
-		for (Vendors vendor : Vendors.values()) {
+    public static boolean main(String sqlQuery, boolean output) {
 
-			Semaphore.vendor = vendor.toString();
+        List<String> xml = new ArrayList<String>();
 
-			XMLHolder xmlHolder = SpringUtil.queryForObject(sqlQuery);
+        for (Vendors vendor : Vendors.values()) {
 
-			Document doc = XMLUtil.getDOM(xmlHolder.getXml());
+            Semaphore.setVendor(vendor.toString());
 
-			doc = XMLUtil.toLowerCase(doc);
+            XMLHolder xmlHolder = SpringUtil.queryForObject(sqlQuery);
 
-			xml.add(XMLUtil.toString(doc));
-		}
-		if (output)
-			ListUtil.print(xml);
-		
-		return ListUtil.compare(xml);
+            Document doc = XMLUtil.getDOM(xmlHolder.getXml());
 
-	}
+            doc = XMLUtil.toLowerCase(doc);
 
-	public enum Vendors {
-		oracle, db2, postresql
-	}
+            xml.add(XMLUtil.toString(doc));
+        }
+        if (output) {
+            ListUtil.print(xml);
+        }
+        return ListUtil.compare(xml);
+
+    }
+
+    public enum Vendors {
+        oracle, db2, postresql
+    }
 
 }

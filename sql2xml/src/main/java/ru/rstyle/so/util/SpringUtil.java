@@ -9,23 +9,27 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import ru.rstyle.so.domain.XMLHolder;
 import ru.rstyle.so.mapper.XMLMapper;
 
-public class SpringUtil {
+public final class SpringUtil {
 
-	private static AbstractApplicationContext context;
+    private SpringUtil() {
 
-	static {
-		context = new ClassPathXmlApplicationContext("spring.cfg.xml");
-	}
+    }
 
-	public static XMLHolder queryForObject(String sqlQuery) {
+    private static AbstractApplicationContext context;
 
-		DataSource dataSource = (DataSource) context.getBean("dataSource");
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+    static {
+        context = new ClassPathXmlApplicationContext("spring.cfg.xml");
+    }
 
-		XMLHolder xmlHolder = jdbcTemplate.queryForObject(sqlQuery,
-				new Object[] {}, new XMLMapper());
+    public static XMLHolder queryForObject(String sqlQuery) {
 
-		return xmlHolder;
-	}
+        DataSource dataSource = (DataSource) context.getBean("dataSource");
+        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+
+        XMLHolder xmlHolder = jdbcTemplate.queryForObject(sqlQuery,
+                new Object[] {}, new XMLMapper());
+
+        return xmlHolder;
+    }
 
 }

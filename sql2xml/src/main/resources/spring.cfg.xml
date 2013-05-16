@@ -11,27 +11,31 @@
 		</property>
 	</bean>
 
-	<bean id="OracleDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
-        <property name="url" value="jdbc:oracle:thin:@10.0.12.46:1521:rsdocdb"/>
-        <property name="username" value="${jdbc.oracle.username}"/>
-        <property name="password" value="${jdbc.oracle.password}"/>
-    </bean>
+	<bean id="OracleDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@10.0.12.46:1521:rsdocdb" />
+		<property name="username" value="${jdbc.oracle.username}" />
+		<property name="password" value="${jdbc.oracle.password}" />
+	</bean>
 
-	<bean id="PostgreSqlDataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://172.16.22.56:5432/rsdoc_rtn2"/>
-        <property name="username" value="${jdbc.postgresql.username}"/>
-        <property name="password" value="${jdbc.postgresql.password}"/>
-    </bean>
+	<bean id="PostgreSqlDataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="org.postgresql.Driver" />
+		<property name="url"
+			value="jdbc:postgresql://172.16.22.56:5432/rsdoc_rtn2" />
+		<property name="username" value="${jdbc.postgresql.username}" />
+		<property name="password" value="${jdbc.postgresql.password}" />
+	</bean>
 
-    <bean id="DB2DataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
-        <property name="driverClassName" value="com.ibm.db2.jcc.DB2Driver"/>
-        <property name="url" value="jdbc:db2://10.0.12.34:50001/rsdoc2"/>
-        <property name="username" value="${jdbc.db2.username}"/>
-        <property name="password" value="${jdbc.db2.password}"/>
-    </bean>
-	
+	<bean id="DB2DataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.ibm.db2.jcc.DB2Driver" />
+		<property name="url" value="jdbc:db2://10.0.12.34:50001/rsdoc2" />
+		<property name="username" value="${jdbc.db2.username}" />
+		<property name="password" value="${jdbc.db2.password}" />
+	</bean>
+
 	<!-- facade data source -->
 	<bean id="dataSource" class="ru.rstyle.so.ds.DBRoutingDS">
 		<property name="targetDataSources">
@@ -43,7 +47,7 @@
 		</property>
 		<property name="defaultTargetDataSource" ref="DB2DataSource" />
 	</bean>
-	
+
 	<!-- wiring up -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">

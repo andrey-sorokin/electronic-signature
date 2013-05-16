@@ -28,129 +28,134 @@ import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-public class XMLUtil {
-	private static final Logger LOG = LoggerFactory.getLogger(XMLUtil.class
-			.getName());
+public final class XMLUtil {
 
-	public static Document toLowerCase(Document doc) {
+    private XMLUtil() {
 
-		final InputStream xslPath = XMLUtil.class
-				.getResourceAsStream("/toLowerCase.xslt");
+    }
 
-		TransformerFactory factory = TransformerFactory.newInstance();
-		DOMResult r = new DOMResult();
+    private static final Logger LOG = LoggerFactory.getLogger(XMLUtil.class
+            .getName());
 
-		try {
-			Templates template = factory
-					.newTemplates(new StreamSource(xslPath));
-			Transformer transformer = template.newTransformer();
+    public static Document toLowerCase(Document doc) {
 
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
-					"yes");
+        final InputStream xslPath = XMLUtil.class
+                .getResourceAsStream("/toLowerCase.xslt");
 
-			transformer.transform(new DOMSource(doc), r);
+        TransformerFactory factory = TransformerFactory.newInstance();
+        DOMResult r = new DOMResult();
 
-		} catch (TransformerConfigurationException e) {
-			LOG.error("{}", e);
-		} catch (TransformerException e) {
-			LOG.error("{}", e);
-		}
+        try {
+            Templates template = factory
+                    .newTemplates(new StreamSource(xslPath));
+            Transformer transformer = template.newTransformer();
 
-		return (Document) r.getNode();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+                    "yes");
 
-	}
+            transformer.transform(new DOMSource(doc), r);
 
-	public static Document loadFromFile(String xmlFile) {
+        } catch (TransformerConfigurationException e) {
+            LOG.error("{}", e);
+        } catch (TransformerException e) {
+            LOG.error("{}", e);
+        }
 
-		File fXmlFile = new File(xmlFile);
-		DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        return (Document) r.getNode();
 
-		try {
-			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(fXmlFile);
-			return doc;
-		} catch (ParserConfigurationException e) {
-			LOG.error("{}", e);
-		} catch (SAXException e) {
-			LOG.error("{}", e);
-		} catch (IOException e) {
-			LOG.error("{}", e);
-		}
+    }
 
-		return null;
-	}
+    public static Document loadFromFile(String xmlFile) {
 
-	public static void print(Document doc, OutputStream out) {
+        File fXmlFile = new File(xmlFile);
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 
-		try {
-			Transformer transformer = getTransformer();
+        try {
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(fXmlFile);
+            return doc;
+        } catch (ParserConfigurationException e) {
+            LOG.error("{}", e);
+        } catch (SAXException e) {
+            LOG.error("{}", e);
+        } catch (IOException e) {
+            LOG.error("{}", e);
+        }
 
-			transformer.setOutputProperty(
-					"{http://xml.apache.org/xslt}indent-amount", "4");
+        return null;
+    }
 
-			transformer.transform(new DOMSource(doc), new StreamResult(
-					new OutputStreamWriter(out)));
-		} catch (TransformerConfigurationException e) {
-			LOG.error("{}", e);
-		} catch (TransformerException e) {
-			LOG.error("{}", e);
-		}
-	}
+    public static void print(Document doc, OutputStream out) {
 
-	public static String toString(Document doc) {
+        try {
+            Transformer transformer = getTransformer();
 
-		StringWriter sw = new StringWriter();
-		try {
-			Transformer transformer = getTransformer();
-			transformer.transform(new DOMSource(doc), new StreamResult(sw));
-		} catch (TransformerException e) {
-			LOG.error("{}", e);
-		}
+            transformer.setOutputProperty(
+                    "{http://xml.apache.org/xslt}indent-amount", "4");
 
-		return sw.toString();
+            transformer.transform(new DOMSource(doc), new StreamResult(
+                    new OutputStreamWriter(out)));
+        } catch (TransformerConfigurationException e) {
+            LOG.error("{}", e);
+        } catch (TransformerException e) {
+            LOG.error("{}", e);
+        }
+    }
 
-	}
+    public static String toString(Document doc) {
 
-	public static Document getDOM(String strData) {
+        StringWriter sw = new StringWriter();
+        try {
+            Transformer transformer = getTransformer();
+            transformer.transform(new DOMSource(doc), new StreamResult(sw));
+        } catch (TransformerException e) {
+            LOG.error("{}", e);
+        }
 
-		Document d = null;
+        return sw.toString();
 
-		try {
-			DocumentBuilderFactory factory = DocumentBuilderFactory
-					.newInstance();
-			DocumentBuilder builder = factory.newDocumentBuilder();
-			InputSource is = new InputSource(new StringReader(strData));
+    }
 
-			d = builder.parse(is);
+    public static Document getDOM(String strData) {
 
-		} catch (ParserConfigurationException e) {
-			LOG.error("{}", e);
-		} catch (SAXException e) {
-			LOG.error("{}", e);
-		} catch (IOException e) {
-			LOG.error("{}", e);
-		}
+        Document d = null;
 
-		return d;
+        try {
+            DocumentBuilderFactory factory = DocumentBuilderFactory
+                    .newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            InputSource is = new InputSource(new StringReader(strData));
 
-	}
+            d = builder.parse(is);
 
-	private static Transformer getTransformer() {
-		TransformerFactory tf = TransformerFactory.newInstance();
+        } catch (ParserConfigurationException e) {
+            LOG.error("{}", e);
+        } catch (SAXException e) {
+            LOG.error("{}", e);
+        } catch (IOException e) {
+            LOG.error("{}", e);
+        }
 
-		Transformer transformer = null;
-		try {
-			transformer = tf.newTransformer();
-			transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
-					"yes");
-			transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-			transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
-		} catch (TransformerConfigurationException e) {
-			LOG.error("{}", e);
-		}
+        return d;
 
-		return transformer;
-	}
+    }
+
+    private static Transformer getTransformer() {
+        TransformerFactory tf = TransformerFactory.newInstance();
+
+        Transformer transformer = null;
+        try {
+            transformer = tf.newTransformer();
+            transformer.setOutputProperty(OutputKeys.OMIT_XML_DECLARATION,
+                    "yes");
+            transformer.setOutputProperty(OutputKeys.METHOD, "xml");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty(OutputKeys.ENCODING, "utf-8");
+        } catch (TransformerConfigurationException e) {
+            LOG.error("{}", e);
+        }
+
+        return transformer;
+    }
 
 }

@@ -12,25 +12,23 @@ import ru.rstyle.so.domain.XMLHolder;
 
 public class XMLMapper implements RowMapper<XMLHolder> {
 
-	public XMLHolder mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public XMLHolder mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-		XMLHolder holder = new XMLHolder();
+        XMLHolder holder = new XMLHolder();
 
-		if (Semaphore.vendor.equals("db2")) {
-			holder.setXml(getXML(rs).replaceAll("&#xD;", ""));
-		}
+        if (Semaphore.getVendor().equals("db2")) {
+            holder.setXml(getXML(rs).replaceAll("&#xD;", ""));
+        } else {
+            holder.setXml(getXML(rs));
+        }
 
-		else {
-			holder.setXml(getXML(rs));
-		}
+        return holder;
+    }
 
-		return holder;
-	}
+    private String getXML(ResultSet rs) throws SQLException {
+        SQLXML sqlxml = rs.getSQLXML(2);
+        String outcome = sqlxml.getString();
 
-	private String getXML(ResultSet rs) throws SQLException {
-		SQLXML sqlxml = rs.getSQLXML(2);
-		String outcome = sqlxml.getString();
-
-		return outcome;
-	}
+        return outcome;
+    }
 }
