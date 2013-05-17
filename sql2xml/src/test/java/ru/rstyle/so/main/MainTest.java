@@ -8,7 +8,7 @@ public class MainTest {
     @Test(enabled = true)
     public void testMain() throws Exception {
 
-        String[] sqlQuery = new String[6];
+        String[] sqlQuery = new String[7];
 
         // test upper case + XMLFOREST function
         sqlQuery[0] = "SELECT id, "
@@ -50,12 +50,24 @@ public class MainTest {
                 + "XMLAGG(XMLELEMENT(NAME \"description\", s.description) ORDER BY description)) "
                 + "FROM sys_classes s " + " GROUP BY 1, name "
                 + "having s.name = 'Контакт'";
-                
+        // test XML processing instruction        
         sqlQuery[5] =  "SELECT 1," +
         		"XMLELEMENT(NAME \"root\", " +
         		" XMLPI ( "
                 + "NAME \"Instruction\", 'Push the red button' "
                 + ")) "
+                + " FROM sys_classes "
+                + "WHERE id = (SELECT id FROM sys_classes WHERE dataset = 'r2_doc') ";
+        // test XML namespace
+        sqlQuery[6] =  "SELECT EMPNO, XMLELEMENT( "
+                + "NAME \"adm:employee\", XMLNAMESPACES( "
+                + " 'http://www.adm.com' AS \"adm\" " 
+                + "),"
+                + " XMLATTRIBUTES( "
+                + " WORKDEPT AS \"adm:department\" "
+                + "), "
+                + "LASTNAME "
+                + ") "
                 + " FROM sys_classes "
                 + "WHERE id = (SELECT id FROM sys_classes WHERE dataset = 'r2_doc') ";
         
