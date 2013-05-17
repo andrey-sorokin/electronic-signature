@@ -21,8 +21,14 @@
         </xsl:attribute>
 	</xsl:template>
 
-<xsl:template match="comment()">
-  <xsl:comment><xsl:value-of select="."/></xsl:comment>
-</xsl:template>
+	<xsl:template match="comment()">
+		<xsl:comment>
+			<xsl:value-of select="." />
+		</xsl:comment>
+	</xsl:template>
+
+	<xsl:template match="processing-instruction()">
+		<xsl:copy />
+	</xsl:template>
 
 </xsl:stylesheet>

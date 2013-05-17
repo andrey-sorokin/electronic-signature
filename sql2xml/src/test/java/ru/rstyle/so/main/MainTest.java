@@ -8,7 +8,7 @@ public class MainTest {
     @Test(enabled = true)
     public void testMain() throws Exception {
 
-        String[] sqlQuery = new String[5];
+        String[] sqlQuery = new String[6];
 
         // test upper case + XMLFOREST function
         sqlQuery[0] = "SELECT id, "
@@ -51,6 +51,14 @@ public class MainTest {
                 + "FROM sys_classes s " + " GROUP BY 1, name "
                 + "having s.name = 'Контакт'";
                 
+        sqlQuery[5] =  "SELECT 1," +
+        		"XMLELEMENT(NAME \"root\", " +
+        		" XMLPI ( "
+                + "NAME \"Instruction\", 'Push the red button' "
+                + ")) "
+                + " FROM sys_classes "
+                + "WHERE id = (SELECT id FROM sys_classes WHERE dataset = 'r2_doc') ";
+        
         /*
          * sqlQuery[5] = "select 1, " + "xmlelement (name customer, " +
          * "xmlattributes(c.CustId as id), " +
@@ -61,9 +69,9 @@ public class MainTest {
          * "from Projects p " + "where p.custid=c.custid ))) " +
          * "from Customers c";
          */
-
+        
         for (String sql : sqlQuery) {
-            Assert.assertTrue(Main.main(sql, false));
+            Assert.assertTrue(Main.main(sql, true));
         }
     }
 }
