@@ -8,7 +8,7 @@ public class MainTest {
     @Test(enabled = true)
     public void testMain() throws Exception {
 
-        String[] sqlQuery = new String[4];
+        String[] sqlQuery = new String[5];
 
         // test upper case + XMLFOREST function
         sqlQuery[0] = "SELECT id, "
@@ -28,7 +28,7 @@ public class MainTest {
 
         // test XMLCONCAT function
         sqlQuery[2] = "SELECT id, "
-                + " xmlelement(name root, "
+                + "xmlelement(name root, "
                 + "XMLCONCAT(XMLELEMENT(NAME \"caption\", s.caption), "
                 + "XMLELEMENT(NAME \"description\", s.description))) "
                 + "FROM sys_classes s "
@@ -38,12 +38,21 @@ public class MainTest {
         sqlQuery[3] = "SELECT 1, "
                 + "XMLELEMENT(NAME \"root\", "
                 + "XMLATTRIBUTES(s.name AS \"name\"), "
-                + " XMLAGG(XMLELEMENT(NAME \"description\", s.description) ORDER BY description)) "
-                + " FROM sys_classes s " + " GROUP BY 1, name "
-                + " having s.name = 'Контакт'";
+                + "XMLAGG(XMLELEMENT(NAME \"description\", s.description) ORDER BY description)) "
+                + "FROM sys_classes s " + " GROUP BY 1, name "
+                + "having s.name = 'Контакт'";
 
+        // test XMLCOMMENT function
+        sqlQuery[4] = "SELECT 1, "
+                + "XMLELEMENT(NAME \"root\", "
+                + "XMLATTRIBUTES(s.name AS \"name\"), "
+                + "XMLCOMMENT('my comment'), " 
+                + "XMLAGG(XMLELEMENT(NAME \"description\", s.description) ORDER BY description)) "
+                + "FROM sys_classes s " + " GROUP BY 1, name "
+                + "having s.name = 'Контакт'";
+                
         /*
-         * sqlQuery[4] = "select 1, " + "xmlelement (name customer, " +
+         * sqlQuery[5] = "select 1, " + "xmlelement (name customer, " +
          * "xmlattributes(c.CustId as id), " +
          * "xmlforest (c.Name as name, c.City as city), " +
          * "xmlelement(name projects, " +
